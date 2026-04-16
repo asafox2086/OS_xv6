@@ -57,7 +57,7 @@ void find(char *path,char *name){
 int main(int argc, char *argv[])
 {
     if(argc!=3){
-        fprintf(2,"Usage:find <path> <name>");
+        fprintf(2,"Usage:find <path> <name>\n");
         exit(0);
     }else{
         find(argv[1],argv[2]);
