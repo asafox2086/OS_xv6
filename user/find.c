@@ -32,17 +32,18 @@ void find(char *path,char *name){
     while(read(fd, &de, sizeof(de)) == sizeof(de)){
         if( de.inum == 0)
             continue;
-        if(strcmp(de.name,".")==0 ||strcmp(de.name,"..")==0){
-            continue;
-        }
         memmove(p, de.name, DIRSIZ);
         p[DIRSIZ] = 0;
+        if(strcmp(p,".")==0 ||strcmp(p,"..")==0){
+            continue;
+        }
+        
         if(stat(buf, &st) < 0){
             printf("find: cannot stat %s\n", buf);
             continue;
         }
         if(st.type==T_FILE){
-            if(strcmp(de.name,name)==0){
+            if(strcmp(p,name)==0){
                 printf("%s\n",buf);
             }
         }else if(st.type==T_DIR){
