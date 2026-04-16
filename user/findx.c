@@ -93,12 +93,11 @@ void findx(char *path,char *name){
 }
 int main(int argc, char *argv[])
 {
-    if(argc<2){
-        findx(".",argv[1]);
+    if(argc!=3){
+        fprintf(2,"Usage:findx <path> <name>");
+        exit(0);
     }else{
-        for(int i=1;i<argc;i++){
-            findx(".",argv[i]);
-        }
+        findx(argv[1],argv[2]);
     }
     exit(0);
 }
