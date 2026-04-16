@@ -17,7 +17,7 @@ void find(char *path,char *name){
         close(fd);
         return;
     }
-    if(st.type != T_DIR){
+    if(st.type!=T_DIR){
         close(fd);
         return;
     }
@@ -25,37 +25,41 @@ void find(char *path,char *name){
         printf("find: path too long\n");
         close(fd);
         return;
-    }
+    }   
     strcpy(buf, path);
-    p = buf + strlen(buf);
+    p = buf+strlen(buf);
     *p++ = '/';
     while(read(fd, &de, sizeof(de)) == sizeof(de)){
-        if(de.inum == 0)
+        if( de.inum == 0)
             continue;
-        if(strcmp(de.name, ".") == 0 || strcmp(de.name, "..") == 0)
+        if(strcmp(de.name,".")==0 ||strcmp(de.name,"..")==0){
             continue;
-
+        }
         memmove(p, de.name, DIRSIZ);
         p[DIRSIZ] = 0;
         if(stat(buf, &st) < 0){
             printf("find: cannot stat %s\n", buf);
             continue;
         }
+        if(st.type==T_FILE){
+            if(strcmp(de.name,name)==0){
+                printf("%s\n",buf);
+            }
+        }else if(st.type==T_DIR){
+            find(buf,name);
+        }
 
-        if(strcmp(p, name) == 0)
-            printf("%s\n", buf);
-
-        if(st.type == T_DIR)
-            find(buf, name);
     }
     close(fd);
+
 }
 int main(int argc, char *argv[])
 {
     if(argc!=3){
-        fprintf(2,"Usage: find <path> <name>\n");
+        fprintf(2,"Usage:find <path> <name>");
         exit(0);
+    }else{
+        find(argv[1],argv[2]);
     }
-    find(argv[1],argv[2]);
     exit(0);
 }
