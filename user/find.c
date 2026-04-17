@@ -3,7 +3,7 @@
 #include "user/user.h"
 #include "kernel/fs.h"
 #include "kernel/fcntl.h"
-void find(char *path,char *Name){
+void find(char *path,char *name){
     char buf[512], *p;
     int fd;
     struct dirent de;
@@ -43,11 +43,11 @@ void find(char *path,char *Name){
             continue;
         }
         if(st.type==T_FILE){
-            if(strcmp(p,Name)==0){
+            if(strcmp(p,name)==0){
                 printf("%s\n",buf);
             }
         }else if(st.type==T_DIR){
-            find(buf,Name);
+            find(buf,name);
         }
 
     }
@@ -57,7 +57,7 @@ void find(char *path,char *Name){
 int main(int argc, char *argv[])
 {
     if(argc!=3){
-        fprintf(2,"Usage:find <path> <Name>\n");
+        fprintf(2,"Usage:find <path> <name>\n");
         exit(0);
     }else{
         find(argv[1],argv[2]);
