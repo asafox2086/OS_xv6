@@ -37,7 +37,6 @@ void find(char *path,char *name){
         if(strcmp(p,".")==0 ||strcmp(p,"..")==0){
             continue;
         }
-        
         if(stat(buf, &st) < 0){
             printf("find: cannot stat %s\n", buf);
             continue;
