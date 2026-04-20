@@ -92,4 +92,8 @@ sys_uptime(void)
   return xticks;
 }
 
-
+uint64
+sys_hello(void) {
+  printf("Hello syscall from xv6!\n");
+  return 0;
+}

@@ -105,3 +105,8 @@ uptime:
  li a7, SYS_uptime
  ecall
  ret
+.global hello
+hello:
+ li a7, SYS_hello
+ ecall
+ ret
